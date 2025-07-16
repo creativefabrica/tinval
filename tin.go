@@ -114,7 +114,7 @@ func validaABN(abn string) bool {
 		return false
 	}
 
-	var abnWeights = []int{10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19}
+	abnWeights := []int{10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19}
 	var weightingSum int
 
 	for i := range abnWeights {

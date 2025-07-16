@@ -3,9 +3,10 @@ package tinval_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/creativefabrica/tinval"
 	"github.com/creativefabrica/tinval/tinvaltest"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestValidator_Validate(t *testing.T) {

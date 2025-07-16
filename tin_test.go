@@ -3,9 +3,10 @@ package tinval_test
 import (
 	"testing"
 
-	"github.com/creativefabrica/tinval"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/creativefabrica/tinval"
 )
 
 func TestParse(t *testing.T) {
