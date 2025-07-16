@@ -1,0 +1,9 @@
+all: false
+filename: 'mock_{{ .InterfaceName | snakecase }}.gen.go'
+packages:
+  github.com/creativefabrica/tinval:
+    config:
+      dir: "tinvaltest/"
+      pkgname: "tinvaltest"
+    interfaces:
+      ValidationClient:
