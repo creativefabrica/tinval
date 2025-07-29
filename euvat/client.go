@@ -12,7 +12,7 @@ import (
 	"github.com/creativefabrica/tinval"
 )
 
-const ServiceBaseURL = "https://ec.europa.eu/taxation_customs/vies/rest-api/"
+const ServiceBaseURL = "https://ec.europa.eu/taxation_customs/vies/rest-api"
 
 type Client struct {
 	httpClient *http.Client
@@ -109,7 +109,7 @@ func (c *Client) validate(ctx context.Context, id tinval.TIN) error {
 		return errors.Join(tinval.ErrServiceUnavailable, err)
 	}
 
-	req.Header.Set("accept", "application/json")
+	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := c.httpClient.Do(req)
