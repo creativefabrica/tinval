@@ -13,16 +13,19 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 	tin, err := tinval.Parse("NL822010690B01")
 	if err != nil {
-		logger.Error("invalid tax id number", "error", err)
+		logger.ErrorContext(ctx, "invalid tax id number", "error", err)
 		os.Exit(1)
 
 		return
 	}
 
-	logger.Info("parsed tax id number", "country_code", tin.CountryCode, "number", tin.Number)
+	logger.InfoContext(
+		ctx, "parsed tax id number", "country_code", tin.CountryCode, "number", tin.Number,
+	)
 
 	tinval.MustParse("NL822010690B01")
 	retries := 3
@@ -60,16 +63,22 @@ func main() {
 		"GB123456789",
 		"AU51824753556",
 		"AU41824753556",
+		"EL123456789",
 	}
 
 	for _, tin := range tins {
 		err = validator.Validate(context.Background(), tin)
 		if err != nil {
-			logger.Error("tax id number is invalid", "error", err, "tin", tin)
+			logger.ErrorContext(
+				ctx,
+				"tax id number is invalid",
+				"error", err,
+				"tin", tin,
+			)
 
 			continue
 		}
 
-		logger.Info("tax id number is valid", "tin", tin)
+		logger.InfoContext(ctx, "tax id number is valid", "tin", tin)
 	}
 }
