@@ -20,13 +20,13 @@ func TestClient_Validate(t *testing.T) {
 		{
 			name:      "Missing credentials",
 			guid:      "",
-			vatNumber: tinval.MustParse("AU51824753556"),
+			vatNumber: tinval.MustParse("51824753556", "AU"),
 			wantErr:   tinval.ErrServiceUnavailable,
 		},
 		{
 			name:      "Valid TIN number",
 			guid:      os.Getenv("ABN_API_AUTH_GUID"),
-			vatNumber: tinval.MustParse("AU51824753556"),
+			vatNumber: tinval.MustParse("51824753556", "AU"),
 			wantErr:   nil,
 		},
 	}

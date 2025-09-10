@@ -7,4 +7,5 @@ var (
 	ErrNotFound           = errors.New("not found")
 	ErrServiceUnavailable = errors.New("validation service unavailable")
 	ErrInvalidCountryCode = errors.New("invalid country code")
+	ErrUnsupportedTaxType = errors.New("unsupported tax type")
 )

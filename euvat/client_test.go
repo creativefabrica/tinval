@@ -17,12 +17,12 @@ func Test_Client_Validate(t *testing.T) {
 	}{
 		{
 			name:      "valid TIN",
-			vatNumber: tinval.MustParse("NL822010690B01"),
+			vatNumber: tinval.MustParse("NL822010690B01", "NL"),
 			wantErr:   nil,
 		},
 		{
 			name:      "non existing TIN",
-			vatNumber: tinval.MustParse("NL822010690B02"),
+			vatNumber: tinval.MustParse("NL822010690B02", "NL"),
 			wantErr:   tinval.ErrNotFound,
 		},
 		{

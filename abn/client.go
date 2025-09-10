@@ -105,6 +105,7 @@ func (r *apiResponse) IsException() bool {
 	if r.Response.UsageStatement == "" && r.Response.Exception != nil {
 		return true
 	}
+
 	return false
 }
 

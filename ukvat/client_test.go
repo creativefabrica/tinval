@@ -20,7 +20,7 @@ func TestClient_Validate(t *testing.T) {
 		{
 			name:      "Missing credentials",
 			creds:     ukvat.ClientCredentials{},
-			vatNumber: tinval.MustParse("GB123456789"),
+			vatNumber: tinval.MustParse("GB123456789", "GB"),
 			wantErr:   tinval.ErrServiceUnavailable,
 		},
 		{
@@ -29,7 +29,7 @@ func TestClient_Validate(t *testing.T) {
 				ID:     os.Getenv("UKVAT_API_CLIENT_ID"),
 				Secret: os.Getenv("UKVAT_API_CLIENT_SECRET"),
 			},
-			vatNumber: tinval.MustParse("GB146295999727"),
+			vatNumber: tinval.MustParse("GB146295999727", "GB"),
 			wantErr:   nil,
 		},
 	}

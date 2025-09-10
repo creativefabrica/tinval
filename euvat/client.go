@@ -139,7 +139,7 @@ func (c *Client) validate(ctx context.Context, id tinval.TIN) error {
 		return errors.Join(tinval.ErrServiceUnavailable, err)
 	}
 
-	if resp.ActionSucceed != nil && *resp.ActionSucceed == false {
+	if resp.ActionSucceed != nil && !*resp.ActionSucceed {
 		if len(resp.ErrorWrappers) == 0 {
 			return tinval.ErrServiceUnavailable
 		}

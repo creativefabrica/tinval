@@ -40,8 +40,8 @@ func NewValidator(options ...ValidatorOption) *Validator {
 }
 
 // Validate checks the format of a TIN, and its existence only if the respective client is present.
-func (v *Validator) Validate(ctx context.Context, tin string) error {
-	id, err := Parse(tin)
+func (v *Validator) Validate(ctx context.Context, tin string, country string) error {
+	id, err := Parse(tin, country)
 	if err != nil {
 		return err
 	}

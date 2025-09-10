@@ -15,19 +15,21 @@ import (
 func main() {
 	ctx := context.Background()
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
-	tin, err := tinval.Parse("NL822010690B01")
+	tin, err := tinval.Parse("NL822010690B01", "NL")
 	if err != nil {
-		logger.ErrorContext(ctx, "invalid tax id number", "error", err)
+		logger.ErrorContext(ctx, "invalid tax id number", slog.Any("error", err))
 		os.Exit(1)
 
 		return
 	}
 
 	logger.InfoContext(
-		ctx, "parsed tax id number", "country_code", tin.CountryCode, "number", tin.Number,
+		ctx, "parsed tax id number",
+		slog.String("country_code", tin.CountryCode),
+		slog.String("number", tin.Number),
 	)
 
-	tinval.MustParse("NL822010690B01")
+	tinval.MustParse("NL822010690B01", "NL")
 	retries := 3
 
 	httpClient := &http.Client{}
@@ -56,29 +58,57 @@ func main() {
 		),
 	)
 
-	tins := []string{
-		"GB146295999727",
-		"NL822010690B01",
-		"NL822010690B02",
-		"GB123456789",
-		"AU51824753556",
-		"AU41824753556",
-		"EL123456789",
+	tins := []struct {
+		value   string
+		country string
+	}{
+		{
+			value:   "GB146295999727",
+			country: "GB",
+		},
+		{
+			value:   "NL822010690B01",
+			country: "NL",
+		},
+		{
+			value:   "NL822010690B02",
+			country: "NL",
+		},
+		{
+			value:   "GB123456789",
+			country: "GB",
+		},
+		{
+			value:   "51824753556",
+			country: "AU",
+		},
+		{
+			value:   "41824753556",
+			country: "AU",
+		},
+		{
+			value:   "EL123456789",
+			country: "GR",
+		},
+		{
+			value:   "XI123456789",
+			country: "GB",
+		},
 	}
 
 	for _, tin := range tins {
-		err = validator.Validate(context.Background(), tin)
+		err = validator.Validate(context.Background(), tin.value, tin.country)
 		if err != nil {
 			logger.ErrorContext(
 				ctx,
 				"tax id number is invalid",
-				"error", err,
-				"tin", tin,
+				slog.Any("error", err),
+				slog.Any("tin", tin),
 			)
 
 			continue
 		}
 
-		logger.InfoContext(ctx, "tax id number is valid", "tin", tin)
+		logger.InfoContext(ctx, "tax id number is valid", slog.Any("tin", tin))
 	}
 }
