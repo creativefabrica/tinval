@@ -24,7 +24,7 @@ import "github.com/creativefabrica/tinval"
 Parsing a Tax ID Number (TIN):
 
 ```go
-tin, err := tinval.Parse("NL822010690B01")
+tin, err := tinval.Parse("NL822010690B01", "NL")
 if err != nil {
     fmt.Printf("Invalid tax id number: %s\n", err)
     return
@@ -35,7 +35,7 @@ fmt.Printf("Country Code: %s Number: %s\n", tin.CountryCode, tin.Number)
 You can also use the `Must` variant if you want to `panic` on error; this is useful on tests:
 
 ```go
-tin := tinval.MustParse("INVALID")
+tin := tinval.MustParse("INVALID", "NL")
 ```
 
 For validating that a TIN actually exists, different APIs are used depending of the type of TIN:
@@ -65,7 +65,7 @@ validator := tinval.NewValidator(
     ),
 )
 
-err := validator.Validate(context.Background(), "GB146295999727")
+err := validator.Validate(context.Background(), "GB146295999727", "GB")
 if err != nil {
     return err
 }
